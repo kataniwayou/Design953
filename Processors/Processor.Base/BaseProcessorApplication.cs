@@ -274,6 +274,9 @@ public abstract class BaseProcessorApplication : IActivityExecutor
             // Allow derived classes to initialize their specific metrics services
             await InitializeCustomMetricsServicesAsync();
 
+            // Allow derived classes to initialize their processor-specific services
+            await InitializeProcessorSpecificServicesAsync();
+
             _logger.LogInformationWithHierarchy(appContext, "Host services initialized early to register meters with OpenTelemetry");
 
             // Initialize the processor service AFTER host is started
@@ -805,6 +808,17 @@ public abstract class BaseProcessorApplication : IActivityExecutor
     {
         // Default implementation does nothing
         // Derived classes can override to initialize their specific metrics services
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Virtual method that derived classes can override to initialize processor-specific services
+    /// This is called after InitializeCustomMetricsServicesAsync() but before processor initialization
+    /// </summary>
+    protected virtual async Task InitializeProcessorSpecificServicesAsync()
+    {
+        // Default implementation does nothing
+        // Derived classes can override to initialize their processor-specific services
         await Task.CompletedTask;
     }
 

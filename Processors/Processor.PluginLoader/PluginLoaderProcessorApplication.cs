@@ -49,7 +49,7 @@ public class PluginLoaderProcessorApplication : BaseProcessorApplication
     /// <summary>
     /// Initialize processor-specific services including stateful plugin preloading
     /// </summary>
-    protected virtual async Task InitializeProcessorSpecificServicesAsync()
+    protected override async Task InitializeProcessorSpecificServicesAsync()
     {
         // Create application-level hierarchical context for preloading
         var appContext = new HierarchicalLoggingContext
