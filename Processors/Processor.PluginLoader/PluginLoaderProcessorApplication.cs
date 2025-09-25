@@ -39,12 +39,18 @@ public class PluginLoaderProcessorApplication : BaseProcessorApplication
     }
 
     /// <summary>
-    /// Initialize custom services including stateful plugin preloading
+    /// Initialize custom metrics services
     /// </summary>
     protected override async Task InitializeCustomMetricsServicesAsync()
     {
         await base.InitializeCustomMetricsServicesAsync();
+    }
 
+    /// <summary>
+    /// Initialize processor-specific services including stateful plugin preloading
+    /// </summary>
+    protected virtual async Task InitializeProcessorSpecificServicesAsync()
+    {
         // Create application-level hierarchical context for preloading
         var appContext = new HierarchicalLoggingContext
         {
